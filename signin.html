@@ -156,16 +156,31 @@
                   <label class="form-label" for="registerEmail">Email</label>
                 </div>
 
+                <!-- Phone Number input -->
+                <div class="form-outline mb-4">
+                  <input type="tel" id="registerPhoneNumber" class="form-control" placeholder="123-456-789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}">
+                  <label class="form-label" for="registerPhoneNumber">Phone Number</label>
+                </div>
+
+                <!-- Preferred Contact Method input -->
+                <div class="form-outline mb-4">
+                  <select id="registerPreferredContactMethod" name="registerPreferredContactMethod">
+                    <option value="volvo">Email</option>
+                    <option value="saab">Phone Number</option>
+                  </select>
+                  <label class="form-label" for="registerPreferredContactMethod">Preferred Contact Method</label>
+                </div>
+
                 <!-- Password input -->
                 <div class="form-outline mb-4">
                   <input type="password" id="registerPassword" class="form-control" />
                   <label class="form-label" for="registerPassword">Password</label>
                 </div>
 
-                <!-- Repeat Password input -->
+                <!-- Areas of Expertise input -->
                 <div class="form-outline mb-4">
-                  <input type="password" id="registerRepeatPassword" class="form-control" />
-                  <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+                  <input type="text" id="registerAreasOfExpertise" class="form-control" placeholder="Describe in which areas you will provide expertise (e.g., helping with FAFSA application, coaching for interviews, etc.)" />
+                  <label class="form-label" for="registerAreasOfExpertise">Areas of Expertise</label>
                 </div>
 
                 <!-- Checkbox -->
@@ -178,7 +193,7 @@
                 </div>
 
                 <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-block mb-3">Sign in</button>
+                <button type="submit" id="signUp" name="signUp" class="btn btn-primary btn-block mb-3">Sign up</button>
               </form>
             </div>
           </div>
@@ -219,6 +234,9 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+   <!-- Firebase JS Files -->
+   <script src="assets/js/authenticate.js"></script>
 
 </body>
 
