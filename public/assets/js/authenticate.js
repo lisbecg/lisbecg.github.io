@@ -21,35 +21,34 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
+  // Sign up user.
 signUp.addEventListener('click', (e)=>{
-
     var username = document.getElementById('registerUsername').value;
     var email = document.getElementById('registerEmail').value;
     var password = document.getElementById('registerPassword').value;
-    // var name = document.getElementById('registerName').value;
-    // var phoneNumber = document.getElementById('registerPhoneNumber').value;
-    // var preferredContactMethod = document.getElementById('registerPreferredContactMethod').value;
-    // var role = document.getElementById('registerRole').value;
-    // var areas = document.getElementById('registerAreas').value;
+    var name = document.getElementById('registerName').value;
+    var phoneNumber = document.getElementById('registerPhoneNumber').value;
+    var preferredContactMethod = document.getElementById('registerPreferredContactMethod').value;
+    var role = document.getElementById('registerRole').value;
+    var areas = document.getElementById('registerAreas').value;
 
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
 
-            set(ref(database, 'users/' + user.uid),{
-                //name: name,
+            set(ref(database, 'users/' + user.uid), {
+                name: name,
+                email: email,
                 username: username,
-                email: email
-                // phoneNumber: phoneNumber,
-                // preferredContactMethod: preferredContactMethod,
-                // role: role,
-                // areas: areas
-            })
+                phoneNumber: phoneNumber,
+                preferredContactMethod: preferredContactMethod,
+                role: role,
+                areas: areas
+              });
             
             alert('user created');
         })
