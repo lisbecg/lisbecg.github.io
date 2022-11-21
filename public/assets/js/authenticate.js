@@ -27,29 +27,29 @@ const auth = getAuth(app);
 
 signUp.addEventListener('click', (e)=>{
 
-    var name = document.getElementById('registerName').value;
     var username = document.getElementById('registerUsername').value;
     var email = document.getElementById('registerEmail').value;
-    var phoneNumber = document.getElementById('registerPhoneNumber').value;
-    var preferredContactMethod = document.getElementById('registerPreferredContactMethod').value;
     var password = document.getElementById('registerPassword').value;
-    var role = document.getElementById('registerRole').value;
-    var areas = document.getElementById('registerAreas').value;
+    // var name = document.getElementById('registerName').value;
+    // var phoneNumber = document.getElementById('registerPhoneNumber').value;
+    // var preferredContactMethod = document.getElementById('registerPreferredContactMethod').value;
+    // var role = document.getElementById('registerRole').value;
+    // var areas = document.getElementById('registerAreas').value;
 
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
 
-            // set(ref(database, 'users/' + user.uid),{
-            //     name: name,
-            //     username: username,
-            //     email: email,
-            //     phoneNumber: phoneNumber,
-            //     preferredContactMethod: preferredContactMethod,
-            //     role: role,
-            //     areas: areas
-            // })
+            set(ref(database, 'users/' + user.uid),{
+                //name: name,
+                username: username,
+                email: email
+                // phoneNumber: phoneNumber,
+                // preferredContactMethod: preferredContactMethod,
+                // role: role,
+                // areas: areas
+            })
             
             alert('user created');
         })
