@@ -181,8 +181,8 @@
     const auth = getAuth(app);
     
     signIn.addEventListener('click', (e)=>{
-        var email = document.getElementById('registerEmail').value;
-        var password = document.getElementById('registerPassword').value;
+        var email = document.getElementById('loginName').value;
+        var password = document.getElementById('loginPassword').value;
 
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
