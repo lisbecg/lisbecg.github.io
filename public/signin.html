@@ -81,7 +81,7 @@
           <!-- Email input -->
           <div class="form-outline mb-4">
             <input type="email" id="loginName" class="form-control" />
-            <label class="form-label" for="loginName">Email or username</label>
+            <label class="form-label" for="loginName">Email</label>
           </div>
 
           <!-- Password input -->
@@ -189,10 +189,10 @@
                 // Signed in 
                 const user = userCredential.user;
 
-                // const dt = new Date();
-                // update(ref(database, 'users/' + user.uid, {
-                //     last_login: dt,
-                // }));
+                const dt = new Date();
+                update(ref(database, 'users/' + user.uid, {
+                    last_login: dt,
+                }));
 
                 // Redirect to the community members page.
                 window.location.href = "communitymembers.html";
