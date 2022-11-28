@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-import { getDatabase, set, ref } from 'https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js' 
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+import { getDatabase, set, ref, update } from 'https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js' 
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://firebase.google.com/docs/web/learn-more#config-object
@@ -25,7 +25,7 @@ const database = getDatabase(app);
 const auth = getAuth(app);
 
   // Sign up user.
-signUp.addEventListener('click', (e)=>{
+  signUp.addEventListener('click', (e)=>{
     var username = document.getElementById('registerUsername').value;
     var email = document.getElementById('registerEmail').value;
     var password = document.getElementById('registerPassword').value;
@@ -39,7 +39,7 @@ signUp.addEventListener('click', (e)=>{
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-
+            
             set(ref(database, 'users/' + user.uid), {
                 name: name,
                 email: email,
@@ -50,13 +50,39 @@ signUp.addEventListener('click', (e)=>{
                 areas: areas
               });
             
-            alert('user created');
+            // Redirect to the community members page.
+            window.location.href = "communitymembers.html";
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             
-            alert(errorMessage);
+            alert(errorMessage + " Try again, please.");
         });
 
+});
+
+signIn.addEventListener('click', (e)=>{
+    var email = document.getElementById('registerEmail').value;
+    var password = document.getElementById('registerPassword').value;
+
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+
+            const dt = new Date();
+            update(ref(database, 'users/' + user.uid, {
+                last_login: dt,
+            }));
+
+            // Redirect to the community members page.
+            window.location.href = "communitymembers.html";
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            alert(errorMessage + " Try again, please.");
+        });
 });
