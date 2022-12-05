@@ -118,14 +118,15 @@
             <div class="row">
               <div class="col-lg-6 col-md-6 d-flex align-items-stretch">
                 <div class="member">
-                  <img src="assets/img/portfolio/portfolio-7.jpg" alt="">
+                  
+                  <img id="display-profile-picture" src="assets/img/portfolio/portfolio-7.jpg" alt="">
                   <div class="col-lg-3 cta-btn-container text-center">
-                    <a class="cta-btn align-middle" href="signup.html">Upload your picture</a>
+                    <a id="profile-picture-link" href="#" class="getstarted scrollto">Upload your picture</a>
+                    <input type="file" id="profile-picture" accept="image/png, image/jpg" />
                   </div>
                 </div>
               </div>
-
-        </div>
+            </div>
 
           </div>
         </section><!-- End Upload your picture section -->
@@ -241,6 +242,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
     import { getDatabase, set, ref } from 'https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js' 
     import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+    import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
 
     // TODO: Replace the following with your app's Firebase project configuration
     // See: https://firebase.google.com/docs/web/learn-more#config-object
@@ -252,6 +254,7 @@
         databaseURL: "https://hispanicswhocollege-e3c8b-default-rtdb.firebaseio.com",
         projectId: "hispanicswhocollege-e3c8b",
         storageBucket: "hispanicswhocollege-e3c8b.appspot.com",
+        //storageBucket: 'gs://hispanicswhocollege-e3c8b.appspot.com',
         messagingSenderId: "179729519037",
         appId: "1:179729519037:web:368abaf78714e3d929c2d4",
         measurementId: "G-FK5L5DPBC2"
@@ -259,10 +262,25 @@
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
+
+    // Initialize Firebase Database and get a reference to the service.
     const database = getDatabase(app);
 
-    // Initialize Firebase Authentication and get a reference to the service
+    // Initialize Firebase Authentication and get a reference to the service.
     const auth = getAuth(app);
+
+    // Initialize Cloud Storage and get a reference to the service.
+    const storage = getStorage(app);
+
+    // Create a storage reference from our storage service
+    const imagesRef = ref(storage, 'images');
+
+    // Create a reference to 'images/mountains.jpg'
+    // const mountainImagesRef = ref(storage, 'images/portfolio-7.jpg');
+
+    const profilePicture = document.getElementById("profile-picture");
+    const profilePictureLink = document.getElementById("profile-picture-link");
+    var uploadedPicture = "";
 
       // Sign up user.
     signUp.addEventListener('click', (e)=>{
@@ -280,6 +298,7 @@
                 // Signed in 
                 const user = userCredential.user;
                 
+                // Save values in database.
                 set(ref(database, 'users/' + user.uid), {
                     name: name,
                     email: email,
@@ -289,6 +308,14 @@
                     role: role,
                     areas: areas
                   });
+
+                alert("I am here");
+
+                // Store image in Storage.
+                // 'file' comes from the Blob or File API
+                // uploadBytes(imagesRef, file).then((snapshot) => {
+                //   alert('Uploaded a blob or file!');
+                // });
                 
                 // Redirect to the community members page.
                 window.location.href = "communitymembers.html";
@@ -301,6 +328,27 @@
             });
 
     });
+
+    // Upload profile picture.
+    // profilePictureLink.addEventListener("click", (e) => {
+    //   if (profilePicture) {
+    //     profilePicture.click();
+    //   }
+    //   e.preventDefault(); // prevent navigation to "#"
+    // }, false);
+    
+    // profilePicture.addEventListener("change", function() {
+    //   alert('I am here');
+    //   const reader = new FileReader();
+    //   alert('I am here');
+    //   reader.addEventListener("load", () => {
+    //     alert(reader.readyState);
+    //     uploadedPicture = reader.result;
+    //     alert(reader.readyState);
+    //     document.getElementById("display-picture").style.backgroundImage = `url(${uploadedPicture})`;
+    //   });
+    //   reader.readAsDataURL(this.files[0]);
+    // });
 
    </script>
 
