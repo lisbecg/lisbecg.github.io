@@ -72,12 +72,28 @@
 
         <div class="section-title">
           <h2>Community Members</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <p>Harness the power of our community to connect with others. If you enrolled as a mentee, find a mentor to help you navigate the U.S. educational system. If you enrolled as a mentor, find a mentee that you could help.</p>
         </div>
 
-        <div class="row">
-          <label class="form-label">Pending</label>
+        <div class="row" id="members-list">
+
+          <div class="row">
+            <div class="col-lg-6 pt-4 pt-lg-0 order-1 order-lg-1 content">
+              <h3>Name</h3>
+              <h4>Role</h4>
+              <ul>
+                <li><i class="bi bi-check-circled"></i> Biography </li>
+                <button id="connectWithMe" name="connectWithMe" class="btn btn-primary btn-block mb-3">Connect with me</button>
+              </ul>
+            </div>
+            <div class="col-lg-6 order-2 order-lg-2">
+              <img src="assets/img/hispanic-college-students.jpeg" class="img-fluid" alt="">
+            </div>
+          </div>
+
         </div>
+
+        
 
       </div>
     </section><!-- End Contact Section -->
@@ -112,6 +128,52 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+    import { getDatabase, set, ref } from 'https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js' 
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+    import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
+
+    // TODO: Replace the following with your app's Firebase project configuration
+    // See: https://firebase.google.com/docs/web/learn-more#config-object
+
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyBhqIalP3-K-gXgQNewWVQ5CVKDMRfsF-E",
+        authDomain: "hispanicswhocollege-e3c8b.firebaseapp.com",
+        databaseURL: "https://hispanicswhocollege-e3c8b-default-rtdb.firebaseio.com",
+        projectId: "hispanicswhocollege-e3c8b",
+        storageBucket: "hispanicswhocollege-e3c8b.appspot.com",
+        messagingSenderId: "179729519037",
+        appId: "1:179729519037:web:368abaf78714e3d929c2d4",
+        measurementId: "G-FK5L5DPBC2"
+      };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Initialize Firebase Database and get a reference to the service.
+    const database = getDatabase(app);
+
+    // Initialize Firebase Authentication and get a reference to the service.
+    const auth = getAuth(app);
+
+    // Initialize Cloud Storage and get a reference to the service.
+    const storage = getStorage(app);
+    
+    const membersList = document.getElementById("members-list");
+    document.addEventListener("load", function(){
+      for (let i = 0; i < 3; i++){
+        const elem = document.createElement('div');
+        const elemText = document.createTextNode('This is a div');
+        elem.appendChild(elemText);
+      }
+    });
+    
+  </script>
+
+
 
 </body>
 
