@@ -76,41 +76,34 @@
         </div>
 
         <div class="row">
-
-          <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="form-group mt-3">
-                <label for="name">Name of the person that you would like to report</label>
-                <input type="text" class="form-control" name="subject" id="subject" required>
+          <div class="form-group mt-3">
+            <label for="name">Name of the person that you would like to report</label>
+            <input type="text" class="form-control" name="subject" id="subject" required>
+          </div>
+          <div class="form-group mt-3">
+            <label for="name">Reasons</label>
+            <ul>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="conductCodeViolationCheckBox" />
+                <label class="form-check-label" for="conductCodeViolationCheckBox">Code of conduct violation</label>
               </div>
-              <div class="form-group mt-3">
-                <label for="name">Reasons</label>
-                <ul>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="conductCodeViolationCheckBox" />
-                    <label class="form-check-label" for="conductCodeViolationCheckBox">Code of conduct violation</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="unmetExpectationsCheckBox" />
-                    <label class="form-check-label" for="unmetExpectationsCheckBox">Expectations not met</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="otherViolationCheckBox" />
-                    <label class="form-check-label" for="otherViolationCheckBox">Other (explain)</label>
-                  </div>
-                </ul>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="unmetExpectationsCheckBox" />
+                <label class="form-check-label" for="unmetExpectationsCheckBox">Expectations not met</label>
               </div>
-              <div class="form-group mt-3">
-                <label for="name">Please describe the violation(s) in detail.</label>
-                <textarea class="form-control" name="message" rows="10" required></textarea>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="otherViolationCheckBox" />
+                <label class="form-check-label" for="otherViolationCheckBox">Other (explain)</label>
               </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Submit</button></div>
-            </form>
+            </ul>
+          </div>
+          <div class="form-group mt-3">
+            <label for="name">Please describe the violation(s) in detail.</label>
+            <textarea class="form-control" name="message" rows="10" required></textarea>
+          </div>
+          <div>&nbsp;</div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-block mb-3" id="reportViolationButton" name="reportViolationButton">Submit</button>
           </div>
 
         </div>
@@ -148,6 +141,47 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+    import { getDatabase, set, ref } from 'https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js' 
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
+    import { getStorage, uploadBytes } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
+
+    // TODO: Replace the following with your app's Firebase project configuration
+    // See: https://firebase.google.com/docs/web/learn-more#config-object
+
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyBhqIalP3-K-gXgQNewWVQ5CVKDMRfsF-E",
+        authDomain: "hispanicswhocollege-e3c8b.firebaseapp.com",
+        databaseURL: "https://hispanicswhocollege-e3c8b-default-rtdb.firebaseio.com",
+        projectId: "hispanicswhocollege-e3c8b",
+        storageBucket: "hispanicswhocollege-e3c8b.appspot.com",
+        messagingSenderId: "179729519037",
+        appId: "1:179729519037:web:368abaf78714e3d929c2d4",
+        measurementId: "G-FK5L5DPBC2"
+      };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Initialize Firebase Database and get a reference to the service.
+    const database = getDatabase(app);
+
+    // Initialize Firebase Authentication and get a reference to the service.
+    const auth = getAuth(app);
+
+    // Initialize Cloud Storage and get a reference to the service.
+    const storage = getStorage(app);
+
+    reportViolationButton.addEventListener('click', (e)=>{
+      alert("Coming soon");
+      // Your message has been sent. Thank you!
+    });
+
+   </script>
+
 
 </body>
 
