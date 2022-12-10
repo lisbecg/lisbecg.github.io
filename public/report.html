@@ -78,7 +78,7 @@
         <div class="row">
           <div class="form-group mt-3">
             <label for="name">Name of the person that you would like to report</label>
-            <input type="text" class="form-control" name="subject" id="subject" required>
+            <input type="text" class="form-control" name="reportedPersonName" id="reportedPersonName" required>
           </div>
           <div class="form-group mt-3">
             <label for="name">Reasons</label>
@@ -99,7 +99,7 @@
           </div>
           <div class="form-group mt-3">
             <label for="name">Please describe the violation(s) in detail.</label>
-            <textarea class="form-control" name="message" rows="10" required></textarea>
+            <textarea class="form-control" name="violationDescription" id="violationDescription" rows="10" required></textarea>
           </div>
           <div>&nbsp;</div>
           <div class="text-center">
@@ -144,9 +144,8 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-    import { getDatabase, set, ref } from 'https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js' 
-    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
-    import { getStorage, uploadBytes } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
+    import { getDatabase } from 'https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js' 
+    import { getAuth } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 
     // TODO: Replace the following with your app's Firebase project configuration
     // See: https://firebase.google.com/docs/web/learn-more#config-object
@@ -166,19 +165,58 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
 
-    // Initialize Firebase Database and get a reference to the service.
-    const database = getDatabase(app);
-
     // Initialize Firebase Authentication and get a reference to the service.
     const auth = getAuth(app);
 
-    // Initialize Cloud Storage and get a reference to the service.
-    const storage = getStorage(app);
-
     reportViolationButton.addEventListener('click', (e)=>{
-      alert("Coming soon");
-      // Your message has been sent. Thank you!
+      const reportedName = document.getElementById('reportedPersonName').value;
+      const description = document.getElementById('violationDescription').value;
+      const reasons = getReasons();
+      const user = auth.currentUser;
+
+      if (user !== null) {
+        const currentUserName = user.name;
+        const userId = user.uid;
+
+        // Write data entered by customer in the report to the Firebase database.
+        writeToDatabase(userId, reportedName, reasons, description);
+        alert("Your report has been sent," + currentUserName + ". Thank you!");
+      }
+      else{
+        alert("Your report cannot be sent. Please, sign in and retry!");
+      }
+
     });
+
+    function getReasons(){
+      const conductCodeViolation = document.getElementById('conductCodeViolationCheckBox').checked;
+      const unmetExpectations = document.getElementById('unmetExpectationsCheckBox').checked;
+      const otherViolation = document.getElementById('otherViolationCheckBox').checked;
+
+      var reasons = "";
+      if(conductCodeViolation){
+        reasons += "code of conduct violation,"
+      }
+      if(unmetExpectations){
+        reasons += "unmet expectations,"
+      }
+      if(otherViolation){
+        reasons += "other violation"
+      }
+
+      return reasons;
+    }
+
+    function writeToDatabase(userId, name, reasons, description) {
+      // Initialize Firebase Database and get a reference to the service.
+      const database = getDatabase(app);
+
+      set(ref(database, 'reports/' + userId), {
+        nameReported: name,
+        reasons: reasons,
+        violationDescription : description
+      });
+    }
 
    </script>
 
