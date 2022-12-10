@@ -338,9 +338,9 @@
       var reader = new FileReader();
       reader.readAsDataURL(fileObj);
       reader.onload = function(){
-        var result = reader.result;
+        uploadedPicture = reader.result;
         var img = document.querySelector('#display-profile-picture');
-        img.setAttribute('src', result);
+        img.setAttribute('src', uploadedPicture);
       }
     });
 
