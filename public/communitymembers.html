@@ -76,7 +76,6 @@
         </div>
 
         <div class="row" id="members-list">
-          <button id="addMembers" name="addMembers" class="btn btn-primary btn-block mb-3">Show Members</button>
         </div>
 
       </div>
@@ -146,16 +145,15 @@
     // Initialize Cloud Storage and get a reference to the service.
     const storage = getStorage(app);
     
-    const membersList = document.getElementById("members-list");
-    document.addEventListener("load", function(){
-      addMembersToHtml();
-    });
-    membersList.app
+    // const membersList = document.getElementById("members-list");
+    // document.addEventListener("load", function(){
+    //   addMembersToHtml();
+    // });
+    // membersList.app
 
-    addMembers.addEventListener("click", (e) => {
-      addMembersToHtml();
-    });
-
+    window.onload = addMembersToHtml();
+    
+    // Used this tool to generate string from HTML code: https://www.accessify.com/tools-and-wizards/developer-tools/html-javascript-convertor/
     function writeHTMLasString(memberName, memberRole, memberBiography){
       var strVar="";
       strVar += "<div class=\"row\">";
