@@ -76,24 +76,8 @@
         </div>
 
         <div class="row" id="members-list">
-
-          <div class="row">
-            <div class="col-lg-6 pt-4 pt-lg-0 order-1 order-lg-1 content">
-              <h3>Name</h3>
-              <h4>Role</h4>
-              <ul>
-                <li><i class="bi bi-check-circled"></i> Biography </li>
-                <button id="connectWithMe" name="connectWithMe" class="btn btn-primary btn-block mb-3">Connect with me</button>
-              </ul>
-            </div>
-            <div class="col-lg-6 order-2 order-lg-2">
-              <img src="assets/img/hispanic-college-students.jpeg" class="img-fluid" alt="">
-            </div>
-          </div>
-
+          <button id="addMembers" name="addMembers" class="btn btn-primary btn-block mb-3">Show Members</button>
         </div>
-
-        
 
       </div>
     </section><!-- End Contact Section -->
@@ -133,7 +117,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
     import { getDatabase, set, ref } from 'https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js' 
     import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
-    import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
+    import { getStorage, uploadBytes } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
 
     // TODO: Replace the following with your app's Firebase project configuration
     // See: https://firebase.google.com/docs/web/learn-more#config-object
@@ -164,13 +148,48 @@
     
     const membersList = document.getElementById("members-list");
     document.addEventListener("load", function(){
-      for (let i = 0; i < 3; i++){
-        const elem = document.createElement('div');
-        const elemText = document.createTextNode('This is a div');
-        elem.appendChild(elemText);
-      }
+      addMembersToHtml();
     });
+    membersList.app
+
+    addMembers.addEventListener("click", (e) => {
+      addMembersToHtml();
+    });
+
+    function writeHTMLasString(memberName, memberRole, memberBiography){
+      var strVar="";
+      strVar += "<div class=\"row\">";
+      strVar += "  <div class=\"col-lg-6 pt-4 pt-lg-0 order-1 order-lg-1 content\">";
+      strVar += "    <h3>" + memberName + "<\/h3>";
+      strVar += "    <h4>" + memberRole + "<\/h4>";
+      strVar += "    <ul>";
+      strVar += "      <li><i class=\"bi bi-check-circled\"><\/i>" + memberBiography + "<\/li>";
+      strVar += "      <button id=\"connectWithMe\" name=\"connectWithMe\" class=\"btn btn-primary btn-block mb-3\">Connect with me<\/button>";
+      strVar += "    <\/ul>";
+      strVar += "  <\/div>";
+      strVar += "  <div class=\"col-lg-6 order-2 order-lg-2\">";
+      strVar += "    <img src=\"assets\/img\/team\/default-user.jpeg\" class=\"img-fluid\" alt=\"\">";
+      strVar += "  <\/div>";
+      strVar += "<\/div>";
+      return strVar;
+    }
     
+    function addMembersToHtml() {
+      var htmlStr = "";
+
+      for (let i = 0; i < 3; i++){
+        var memberName = "My name";
+        var memberRole = "My role";
+        var memberBiography = "My bio";
+
+        var memberStr = writeHTMLasString(memberName, memberRole, memberBiography);
+        htmlStr += memberStr;
+      }
+
+      // Insert text in HTML.
+      document.getElementById("members-list").innerHTML += htmlStr;
+    }
+
   </script>
 
 
