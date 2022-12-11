@@ -190,7 +190,7 @@
                 const user = userCredential.user;
 
                 const dt = new Date();
-                update(ref(database, 'users/' + user.uid, {
+                update(ref(database, 'members/' + user.uid, {
                     last_login: dt,
                 }));
 
