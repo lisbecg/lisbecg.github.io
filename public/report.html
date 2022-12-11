@@ -55,7 +55,8 @@
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="contact.html">Contact</a></li>
-          <li><a class="getstarted scrollto" href="signin.html">Sign In</a></li>
+          <li><a class="getstarted scrollto" id="signInHyperlink" href="signin.html">Sign In</a></li>
+          <li><a class="getstarted scrollto" id="signOutHyperlink" style="display: none;">Sign Out</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -166,13 +167,28 @@
 
     // Initialize Firebase Authentication and get a reference to the service.
     const auth = getAuth(app);
+    const user = auth.currentUser;
+
+    // Hide 'Sign In' and show 'Sign Out' when page loads.
+    window.onload = onLoadPage();
+
+    function onLoadPage(){
+      if (user !== null) {
+        hideSignIn();
+      }
+    }
+
+    function hideSignIn() {
+      // Hide 'Sign In' hyperlink and show 'Sign Out' hyperlink
+      document.getElementById("signInHyperlink").style.display = "none";
+      document.getElementById("signOutHyperlink").style.display = "inline";
+    }
 
     reportViolationButton.addEventListener('click', (e)=>{
       const reportedName = document.getElementById('reportedPersonName').value;
       const description = document.getElementById('violationDescription').value;
       const reasons = getReasons();
-      const user = auth.currentUser;
-
+      
       if (user !== null) {
         const userId = user.uid;
 
