@@ -174,12 +174,11 @@
       const user = auth.currentUser;
 
       if (user !== null) {
-        const currentUserName = user.name;
         const userId = user.uid;
 
         // Write data entered by customer in the report to the Firebase database.
         writeToDatabase(userId, reportedName, reasons, description);
-        alert("Your report has been sent," + currentUserName + ". Thank you!");
+        alert("Your report has been sent. Thank you!");
       }
       else{
         alert("Your report cannot be sent. Please, sign in and retry!");
