@@ -296,7 +296,7 @@
                 const user = userCredential.user;
                 
                 // Save values in database.
-                set(ref(database, 'members/' + user.uid), {
+                set(ref(database, 'users/' + user.uid), {
                     name: name,
                     email: email,
                     username: username,
