@@ -160,25 +160,25 @@
     window.onload = addMembersToHtml();
 
     // Hide 'Sign In' and show 'Sign Out' when page loads.
-    window.onload = onLoadPage();
+    // window.onload = onLoadPage();
 
-    function onLoadPage(){
-      if (user !== null) {
-        // Hide 'Sign In' and show 'Sign Out' hyperlink.
-        hideSignIn();
-        // Show Members.
-        addMembersToHtml();
-      } 
-      else{
-        alert("To see the members, you need to be a member yourself. Please, sign up or sign in.");
-      }
-    }
+    // function onLoadPage(){
+    //   if (user !== null) {
+    //     // Hide 'Sign In' and show 'Sign Out' hyperlink.
+    //     hideSignIn();
+    //     // Show Members.
+    //     addMembersToHtml();
+    //   } 
+    //   else{
+    //     alert("To see the members, you need to be a member yourself. Please, sign up or sign in.");
+    //   }
+    // }
 
-    function hideSignIn() {
-      // Hide 'Sign In' hyperlink and show 'Sign Out' hyperlink
-      document.getElementById("signInHyperlink").style.visibility = "hidden";
-      document.getElementById("signOutHyperlink").style.visibility = "visible";
-    }
+    // function hideSignIn() {
+    //   // Hide 'Sign In' hyperlink and show 'Sign Out' hyperlink
+    //   document.getElementById("signInHyperlink").style.visibility = "hidden";
+    //   document.getElementById("signOutHyperlink").style.visibility = "visible";
+    // }
     
     // Start listing users from the beginning, 1000 at a time.
     //listAllUsers();
